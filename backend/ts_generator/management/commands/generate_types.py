@@ -32,7 +32,7 @@ class Command(AppCommand):
             help='Semicolons will be added if this argument is present'
         )
         whitespace_group = parser.add_mutually_exclusive_group()
-        whitespace_group.add_argument('--spaces', type=int, default=2)
+        whitespace_group.add_argument('--spaces', type=int, default=4)
         whitespace_group.add_argument('--tabs', type=int)
 
         return super().add_arguments(parser)
@@ -86,7 +86,7 @@ class Command(AppCommand):
         self.process_file(serializers, api_endpoints, options)
 
     def process_file(self, serializers, api_endpoints, options):
-
+        #TODO: fix this so that different request methods get different outcomes
         # Write some important stuff first
         self.stdout.write("""// We have a custom axios client
 import axios from "@common/axios";
