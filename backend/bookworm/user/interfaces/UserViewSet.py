@@ -2,10 +2,13 @@ from rest_framework import filters
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 
+from ts_generator.Route import route
+
 from bookworm.user.interfaces.serializers import UserSerializer
 from bookworm.user.models import AppUser
 
 
+@route('user', name='User', method=['get'])
 class UserViewSet(viewsets.ModelViewSet):
     http_method_names = ['get']
     serializer_class = UserSerializer

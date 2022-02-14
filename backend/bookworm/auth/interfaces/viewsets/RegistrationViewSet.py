@@ -5,9 +5,12 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView
 
+from ts_generator.Route import route
+
 from bookworm.auth.interfaces.serializers import RegisterSerializer
 
 
+@route('auth/register', name='Register', method=['post'])
 class RegistrationViewSet(ModelViewSet, TokenObtainPairView):
     class Meta:
         request_data = ['username', 'email', 'password']

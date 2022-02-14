@@ -3,7 +3,10 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from rest_framework_simplejwt.tokens import RefreshToken
 
+from ts_generator.Route import route
 
+
+@route('auth/logout', name='Logout', method=['post'])
 class LogoutViewSet(ModelViewSet):
     class Meta:
         request_data = ['refresh']

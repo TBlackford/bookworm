@@ -5,9 +5,12 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
 from rest_framework_simplejwt.views import TokenObtainPairView
 
+from ts_generator.Route import route
+
 from bookworm.auth.interfaces.serializers import LoginSerializer
 
 
+@route('auth/login', name='Login', method=['post'])
 class LoginViewSet(ModelViewSet, TokenObtainPairView):
     class Meta:
         request_data = ['email', 'password']

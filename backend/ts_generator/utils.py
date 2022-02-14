@@ -3,7 +3,7 @@ import inspect
 import os
 from collections import OrderedDict
 
-from rest_framework import routers, serializers
+from rest_framework import routers, serializers, views
 
 from ts_generator.globals import (
     CHOICES_TRANSFORM_FUNCTIONS_BY_TYPE, DEFAULT_TYPE, MAPPING, SPECIAL_FIELD_TYPES
@@ -18,6 +18,11 @@ def _is_serializer_class(member):
 def _is_router_instance(member):
     """ Returns whether the `member` is drf router or not """
     return not inspect.isclass(member) and routers.BaseRouter in inspect.getmro(member.__class__)
+
+
+def _is_api_endpoint_function(member):
+    """ Returns whether the member has endpoints or not """
+    return inspect.isclass(member) and views.View in inspect.getmro(member.__class__)
 
 
 def _to_camelcase(s):
@@ -35,8 +40,11 @@ def _get_project_name():
     return os.environ['DJANGO_SETTINGS_MODULE'].split('.')[0]
 
 
-def _get_typescript_name(field, field_name):
-    typescript_field_name = _to_camelcase(field_name)
+def _get_typescript_name(field, field_name, options={}):
+    if options.get('preserve_case', False):
+        typescript_field_name = field_name
+    else:
+        typescript_field_name = _to_camelcase(field_name)
     if not field.read_only and not field.required:
         typescript_field_name += '?'
     return typescript_field_name
@@ -59,6 +67,7 @@ def _get_choice_selection_fields_type(field):
     by enumerating its choices. Also takes into account the
     allow_blank argument.
     """
+
     def transform_choice(v):
         return str(CHOICES_TRANSFORM_FUNCTIONS_BY_TYPE[type(v)](v))
 
@@ -125,6 +134,14 @@ def _get_typescript_type(field, field_name, serializer_instance):
     return typescript_type + ('[]' if is_list else '')
 
 
+def _format_serializer_name(serializer_name, serializer):
+    if hasattr(serializer, 'Meta'):
+        if hasattr(serializer.Meta, 'name'):
+            return serializer_name.replace("Serializer", serializer.Meta.name), serializer
+
+    return serializer_name.replace("Serializer", "Payload"), serializer
+
+
 def get_nested_serializers(serializer):
     """
     Finds nested serializers in given serializer. Returns
@@ -143,7 +160,7 @@ def get_nested_serializers(serializer):
     return OrderedDict(sorted(nested_serializers.items()))
 
 
-def get_serializer_fields(serializer):
+def get_serializer_fields(serializer, options={}):
     """
     Determines a typescript type for every field in the serializer.
     Returns ordered dictionary with keys being transformed field names to
@@ -154,7 +171,7 @@ def get_serializer_fields(serializer):
     fields = serializer_instance.get_fields()
     typescript_fields = {}
     for field_name, field in fields.items():
-        typescript_field_name = _get_typescript_name(field, field_name)
+        typescript_field_name = _get_typescript_name(field, field_name, options)
         typescript_type = _get_typescript_type(field, field_name, serializer_instance)
         typescript_fields[typescript_field_name] = typescript_type
 
@@ -180,7 +197,24 @@ def get_module_serializers(module):
     """ Returns all serializer classes found in given module """
     try:
         urls_module = importlib.import_module(module)
-        return inspect.getmembers(urls_module, _is_serializer_class)
+        obj = inspect.getmembers(urls_module, _is_serializer_class)
+
+        # if len(obj) > 0:
+        #     name, serializer = obj[0][0], obj[0][1]
+        #     print('Tuple 1', name, type(serializer))
+        #     print('Tuple 1', name, type(serializer))
+        #     return [_format_serializer_name(name, serializer)]
+
+        return obj
+    except ImportError:
+        return []
+
+
+def get_api_endpoints(endpoint):
+    """ Returns all endpoints classes found in given module """
+    try:
+        urls_module = importlib.import_module(endpoint)
+        return inspect.getmembers(urls_module, _is_api_endpoint_function)
     except ImportError:
         return []
 

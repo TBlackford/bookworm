@@ -4,7 +4,10 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
 from rest_framework_simplejwt.views import TokenRefreshView
 
+from ts_generator.Route import route
 
+
+@route('auth/refresh', name='Refresh', method=['post'])
 class RefreshViewSet(viewsets.ViewSet, TokenRefreshView):
     class Meta:
         request_data = ['refresh']
