@@ -2,11 +2,11 @@ import os
 if 'DJANGO_SETTINGS_MODULE' not in os.environ:
     os.environ['DJANGO_SETTINGS_MODULE'] = 'tests.settings'
 
-from drf_typescript_generator.utils import (
+from ts_generator.utils import (
     _get_method_return_value_type, _get_typescript_name, _get_typescript_type, export_serializer,
     get_serializer_fields
 )
-from drf_typescript_generator.globals import DEFAULT_TYPE
+from ts_generator.globals import DEFAULT_TYPE
 
 from utils import (
     ChoiceFieldTestSerializer, ListFieldTestSerializer, MethodOutputTestSerializer, 

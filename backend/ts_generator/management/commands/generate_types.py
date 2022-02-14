@@ -1,7 +1,7 @@
 from django.apps import AppConfig
 from django.core.management.base import AppCommand
 
-from drf_typescript_generator.utils import (
+from ts_generator.utils import (
     export_serializer,
     get_app_routers,
     get_module_serializers,

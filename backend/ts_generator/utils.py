@@ -5,7 +5,7 @@ from collections import OrderedDict
 
 from rest_framework import routers, serializers
 
-from drf_typescript_generator.globals import (
+from ts_generator.globals import (
     CHOICES_TRANSFORM_FUNCTIONS_BY_TYPE, DEFAULT_TYPE, MAPPING, SPECIAL_FIELD_TYPES
 )
 

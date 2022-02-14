@@ -31,6 +31,16 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = 'bookworm_user.AppUser'
+
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:3000',
+    'http://127.0.0.1:3000'
+)
+
+SIMPLE_JWT = {
+    'AUTH_TOKEN_CLASSES': ('lerna.auth.interfaces.models.JWTAccessToken',),
+}
 
 # Application definition
 
@@ -42,7 +52,19 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'drf_typescript_generator',
+    # Non-django apps
+    'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
+    'dotenv',
+
+    # Helper apps
+    'ts_generator',
+
+    # Project apps
+    'bookworm.books',
+    'bookworm.auth',
+    'bookworm.user',
+    'bookworm.core',
 ]
 
 MIDDLEWARE = [
@@ -105,6 +127,26 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+
+    ),
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+        'djangorestframework_camel_case.render.CamelCaseJSONRenderer',
+        'djangorestframework_camel_case.render.CamelCaseBrowsableAPIRenderer',
+    ),
+    'DEFAULT_PARSER_CLASSES': (
+        # If you use MultiPartFormParser or FormParser, we also have a camel case version
+        'djangorestframework_camel_case.parser.CamelCaseFormParser',
+        'djangorestframework_camel_case.parser.CamelCaseMultiPartParser',
+        'djangorestframework_camel_case.parser.CamelCaseJSONParser',
+        # Any other parsers
+    ),
+}
+
 
 
 # Internationalization
