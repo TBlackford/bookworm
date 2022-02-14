@@ -1,7 +1,7 @@
 import axios from 'axios';
 import createAuthRefreshInterceptor from 'axios-auth-refresh';
 
-import store from '@app/store';
+import store from '@common/store';
 import { logout, setAuthTokens } from "@/features/authentication/auth";
 import { postRefresh } from "@/common/BaseApi";
 

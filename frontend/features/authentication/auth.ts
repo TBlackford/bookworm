@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { AccountResponse, State } from "@common/AppTypes";
+import { AccountResponse, State } from '@common/AppTypes';
 
 
 const initialState: State = {

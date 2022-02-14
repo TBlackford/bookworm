@@ -3,25 +3,25 @@
         "baseUrl": ".",
         "paths": {
             "@/*": [
-                "/*"
+                "*"
             ],
             "@common/*": [
-                "/common/*"
+                "common/*"
             ],
             "@components/*": [
-                "/components/*"
+                "components/*"
             ],
             "@features/*": [
-                "/features/*"
+                "features/*"
             ],
             "@svg/*": [
-                "/assets/svg/*"
+                "assets/svg/*"
             ],
             "@img/*": [
-                "/assets/images/*"
+                "assets/images/*"
             ],
             "@icons/*": [
-                "/assets/icons/*"
+                "assets/icons/*"
             ]
         }
     }
