@@ -4,8 +4,8 @@ from rest_framework.permissions import IsAuthenticated
 
 from ts_generator.Route import route
 
-from bookworm.user.interfaces.serializers import UserSerializer
-from bookworm.user.models import AppUser
+from bookworm.user.data.serializers import UserSerializer
+from bookworm.user.data.models import AppUser
 
 
 @route('user', name='User', method=['get'])

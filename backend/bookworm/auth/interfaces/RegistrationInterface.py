@@ -7,7 +7,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 
 from ts_generator.Route import route
 
-from bookworm.auth.interfaces.serializers import RegisterSerializer
+from bookworm.auth.data.serializers import RegisterSerializer
 
 
 @route('auth/register', name='Register', method=['post'])

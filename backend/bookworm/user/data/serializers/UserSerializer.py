@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from bookworm.user.models import AppUser
+from bookworm.user.data.models import AppUser
 
 
 class UserSerializer(serializers.ModelSerializer):

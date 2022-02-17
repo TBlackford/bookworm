@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
 
-from bookworm.core.models import AbstractModel
+from bookworm.core.data.models import AbstractModel
 
 
 class UserManager(BaseUserManager):

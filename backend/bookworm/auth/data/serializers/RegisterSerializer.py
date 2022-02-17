@@ -1,8 +1,8 @@
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import serializers
 
-from bookworm.user.interfaces.serializers import UserSerializer
-from bookworm.user.models import AppUser
+from bookworm.user.data.serializers import UserSerializer
+from bookworm.user.data.models import AppUser
 
 
 class RegisterSerializer(UserSerializer):

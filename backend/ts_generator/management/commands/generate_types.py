@@ -90,7 +90,7 @@ class Command(AppCommand):
         # Write some important stuff first
         self.stdout.write("""// We have a custom axios client
 import axios from "@common/axios";
-import { AxiosResponse } from "axios";
+import { AxiosResponse, Method } from "axios";
 
 export type SuccessCallback = (res?: any) => void;
 export type ErrorCallback = (err: any) => void;
@@ -103,9 +103,11 @@ export interface FunctionCallbackType {
     completed?: VoidFunction,
 }
 
-const api = (url: string, data?: {}, functionCallbackType?: FunctionCallbackType) => {
-    return axios
-        .post(url + '/', data)
+const api = (url: string, method: Method, data?: {}, functionCallbackType?: FunctionCallbackType) => {
+    return axios.request({
+        url: url + '/',
+        data
+    })
         .then((res) => {
             if(functionCallbackType && functionCallbackType.success) {
                 functionCallbackType.success(res);
@@ -160,9 +162,9 @@ const api = (url: string, data?: {}, functionCallbackType?: FunctionCallbackType
 
             self.stdout.write(first_line)
             if request_data is None and data_str is None:
-                self.stdout.write(f"\treturn api('{endpoint_data['path']}', functionCallbackType);")
+                self.stdout.write(f"\treturn api('{endpoint_data['path']}', '{method}', functionCallbackType);")
             else:
-                self.stdout.write(f"\treturn api('{endpoint_data['path']}', {data_str}, functionCallbackType);")
+                self.stdout.write(f"\treturn api('{endpoint_data['path']}', '{method}', {data_str}, functionCallbackType);")
             self.stdout.write("}\n\n")
 
     def process_serializer(self, serializer_name, serializer, options):

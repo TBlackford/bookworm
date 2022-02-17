@@ -3,7 +3,7 @@ from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.settings import api_settings
 
-from bookworm.user.interfaces.serializers import UserSerializer
+from bookworm.user.data.serializers import UserSerializer
 
 
 class LoginSerializer(TokenObtainPairSerializer):

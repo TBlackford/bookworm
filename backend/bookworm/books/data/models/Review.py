@@ -1,7 +1,7 @@
 from django.db import models
 
-from bookworm.core.models import AbstractModel
-from bookworm.user.models import AppUser
+from bookworm.core.data.models import AbstractModel
+from bookworm.user.data.models import AppUser
 
 
 class Review(AbstractModel):

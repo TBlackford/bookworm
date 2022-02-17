@@ -7,7 +7,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 
 from ts_generator.Route import route
 
-from bookworm.auth.interfaces.serializers import LoginSerializer
+from bookworm.auth.data.serializers import LoginSerializer
 
 
 @route('auth/login', name='Login', method=['post'])

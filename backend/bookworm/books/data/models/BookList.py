@@ -1,7 +1,7 @@
 from django.db import models
 
-from bookworm.books.models import Author
-from bookworm.core.models import AbstractModel
+from bookworm.books.data.models import Author
+from bookworm.core.data.models import AbstractModel
 
 
 class BookList(AbstractModel):

@@ -1,8 +1,8 @@
 from django.db import models
 from django.forms import ModelForm
 
-from bookworm.books.models import Author
-from bookworm.core.models import AbstractModel
+from bookworm.books.data.models import Author
+from bookworm.core.data.models import AbstractModel
 
 
 class Book(AbstractModel):

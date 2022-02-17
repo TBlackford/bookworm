@@ -1,9 +1,10 @@
-import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
 import { FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, REHYDRATE, } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
 import auth from "@/features/authentication/auth";
+
 
 const rootReducer = combineReducers({
     auth,
@@ -20,7 +21,7 @@ const persistedReducer = persistReducer(
 
 const store = configureStore({
     reducer: persistedReducer,
-    middleware: getDefaultMiddleware({
+    middleware: getDefaultMiddleware => getDefaultMiddleware({
         serializableCheck: {
             ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
         },
