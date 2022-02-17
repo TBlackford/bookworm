@@ -1,3 +1,6 @@
+import uuid
+from datetime import datetime
+
 from django.db import models
 from django.forms import ModelForm
 
@@ -10,6 +13,19 @@ class Author(AbstractModel):
 
     def full_name(self) -> str:
         return f"{self.first_name} {self.last_name}"
+
+    def create(self, validated_data):
+        now = datetime.now()
+        self.uuid = uuid.UUID()
+        self.created_timestamp = now
+        self.modified_timestamp = now
+        print('new author model', self)
+        return validated_data
+
+    # def delete(self, using=None, keep_parents=False):
+    #     now = datetime.now()
+    #     self.created_timestamp = now
+    #     self.modified_timestamp = now
 
     def __str__(self):
         return self.full_name()

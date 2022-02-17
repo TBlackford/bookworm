@@ -57,15 +57,17 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
     'dotenv',
+    'taggit',
 
     # Helper apps
     'ts_generator',
 
     # Project apps
-    'bookworm.books',
+    'bookworm',
+    'bookworm.core',
     'bookworm.auth',
     'bookworm.user',
-    'bookworm.core',
+    'bookworm.books',
 ]
 
 MIDDLEWARE = [
@@ -83,8 +85,7 @@ ROOT_URLCONF = 'bookworm.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
-        ,
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -136,7 +137,7 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_RENDERER_CLASSES': (
         'rest_framework.renderers.JSONRenderer',
-        'djangorestframework_camel_case.render.CamelCaseJSONRenderer',
+        # 'djangorestframework_camel_case.render.CamelCaseJSONRenderer',
         'djangorestframework_camel_case.render.CamelCaseBrowsableAPIRenderer',
     ),
     'DEFAULT_PARSER_CLASSES': (

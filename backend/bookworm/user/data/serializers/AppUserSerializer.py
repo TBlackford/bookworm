@@ -3,7 +3,7 @@ from rest_framework import serializers
 from bookworm.user.data.models import AppUser
 
 
-class UserSerializer(serializers.ModelSerializer):
+class AppUserSerializer(serializers.ModelSerializer):
     class Meta:
         name = 'Details'
         model = AppUser

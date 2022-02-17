@@ -9,7 +9,11 @@ class AuthorSerializer(BaseSerializer):
     last_name = serializers.CharField(max_length=255, min_length=1)
     full_name = serializers.CharField(max_length=255, min_length=2, read_only=True, required=False)
 
+    def create(self, validated_data):
+        return super().create(self, validated_data=validated_data)
+
     class Meta:
+        depth = 1
         model = Author
-        fields = ['uuid', 'first_name', 'last_name', 'full_name', 'created_timestamp', 'modified_timestamp']
-        # read_only_field = ['uuid', 'created_timestamp', 'modified_timestamp']
+        #fields = '__all__'
+        exclude = ['id']

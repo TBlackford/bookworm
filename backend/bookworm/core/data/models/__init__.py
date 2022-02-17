@@ -1,1 +1,3 @@
 from .AbstractModel import AbstractModel
+from .AbstractLikeableModel import AbstractLikeableModel
+from .AbstractRateableModel import AbstractRateableModel

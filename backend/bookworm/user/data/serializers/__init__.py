@@ -1,1 +1,1 @@
-from .UserSerializer import UserSerializer
+from .AppUserSerializer import AppUserSerializer

@@ -88,46 +88,13 @@ class Command(AppCommand):
     def process_file(self, serializers, api_endpoints, options):
         #TODO: fix this so that different request methods get different outcomes
         # Write some important stuff first
-        self.stdout.write("""// We have a custom axios client
-import axios from "@common/axios";
-import { AxiosResponse, Method } from "axios";
 
-export type SuccessCallback = (res?: any) => void;
-export type ErrorCallback = (err: any) => void;
-
-export type ApiPromise<T> = Promise<void | AxiosResponse<any, any> | T>;
-
-export interface FunctionCallbackType {
-    success?: SuccessCallback,
-    failure?: ErrorCallback,
-    completed?: VoidFunction,
-}
-
-const api = (url: string, method: Method, data?: {}, functionCallbackType?: FunctionCallbackType) => {
-    return axios.request({
-        url: url + '/',
-        data
-    })
-        .then((res) => {
-            if(functionCallbackType && functionCallbackType.success) {
-                functionCallbackType.success(res);
-            }
-            return res;
-        })
-        .catch((res) => {
-            if(functionCallbackType && functionCallbackType.failure) {
-                functionCallbackType.failure(res);
-            }
-        })
-        .finally(() => {
-            if(functionCallbackType && functionCallbackType.completed) {
-                functionCallbackType.completed();
-            }
-        });
-}\n\n""")
+        with open('ts_generator/management/commands/BaseApi.ts', 'r') as file:
+            for line in file:
+                self.stdout.write(line,)
+            self.stdout.write('\n')
 
         # Types will end up here later
-
         for serializer_name, serializer in sorted(serializers):
             self.process_serializer(serializer_name, serializer, options)
 

@@ -1,11 +1,11 @@
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import serializers
 
-from bookworm.user.data.serializers import UserSerializer
+from bookworm.user.data.serializers import AppUserSerializer
 from bookworm.user.data.models import AppUser
 
 
-class RegisterSerializer(UserSerializer):
+class RegisterSerializer(AppUserSerializer):
     password = serializers.CharField(max_length=128, min_length=8, write_only=True, required=True)
     email = serializers.EmailField(required=True, write_only=True, max_length=128)
 

@@ -1,8 +1,8 @@
 from rest_framework.routers import SimpleRouter
 
-from bookworm.auth.interfaces.viewsets import RefreshViewSet, LogoutViewSet, RegistrationViewSet, LoginViewSet
+from bookworm.auth.interfaces import RefreshViewSet, LogoutViewSet, RegistrationViewSet, LoginViewSet
 from bookworm.user.interfaces import UserViewSet
-from bookworm.books.interfaces.viewsets import AuthorViewSet
+from bookworm.books.interfaces import AuthorViewSet, BookViewSet
 
 routes = SimpleRouter()
 
@@ -17,6 +17,9 @@ routes.register('user', UserViewSet, basename='user')
 
 # AUTHOR
 routes.register('author', AuthorViewSet, basename='author')
+
+# BOOK
+routes.register('book', BookViewSet, basename='book')
 
 urlpatterns = [
     *routes.urls

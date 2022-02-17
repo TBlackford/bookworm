@@ -51,3 +51,6 @@ class AppUser(AbstractModel, AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return f"{self.email}"
+
+    class Meta:
+        app_label = 'bookworm_user'

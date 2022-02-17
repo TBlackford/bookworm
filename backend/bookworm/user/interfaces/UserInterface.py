@@ -4,14 +4,14 @@ from rest_framework.permissions import IsAuthenticated
 
 from ts_generator.Route import route
 
-from bookworm.user.data.serializers import UserSerializer
+from bookworm.user.data.serializers import AppUserSerializer
 from bookworm.user.data.models import AppUser
 
 
 @route('user', name='User', method=['get'])
 class UserViewSet(viewsets.ModelViewSet):
     http_method_names = ['get']
-    serializer_class = UserSerializer
+    serializer_class = AppUserSerializer
     permission_classes = (IsAuthenticated,)
     filter_backends = [filters.OrderingFilter]
     ordering_fields = ['updated']

@@ -3,11 +3,11 @@ from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.settings import api_settings
 
-from bookworm.user.data.serializers import UserSerializer
+from bookworm.user.data.serializers import AppUserSerializer
 
 
 class LoginSerializer(TokenObtainPairSerializer):
-    user = UserSerializer(many=False, required=False)
+    user = AppUserSerializer(many=False, required=False)
     refresh = serializers.CharField(max_length=128, min_length=8, write_only=True, required=False)
     access = serializers.CharField(max_length=128, min_length=8, write_only=True, required=False)
 
@@ -16,7 +16,7 @@ class LoginSerializer(TokenObtainPairSerializer):
 
         refresh = self.get_token(self.user)
 
-        data['user'] = UserSerializer(self.user).data
+        data['user'] = AppUserSerializer(self.user).data
         data['refresh'] = str(refresh)
         data['access'] = str(refresh.access_token)
 

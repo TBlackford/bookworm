@@ -45,8 +45,8 @@ def _get_typescript_name(field, field_name, options={}):
         typescript_field_name = field_name
     else:
         typescript_field_name = _to_camelcase(field_name)
-    if not field.read_only and not field.required:
-        typescript_field_name += '?'
+    # if not field.read_only and not field.required:
+    typescript_field_name += '?'
     return typescript_field_name
 
 
